@@ -1,0 +1,26 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/todo.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="form-container">
+        {{ form_start(form) }}
+        <div class="form-field">
+            {{ form_label(form.task, 'Aufgabe') }}
+            {{ form_widget(form.task) }}
+        </div>
+        <div class="form-field">
+            {{ form_label(form.dueDate, 'Fertig bis:') }}
+            {{ form_widget(form.dueDate) }}
+        </div>
+        <div class="form-field">
+            <label for="{{ form.nimmMeineDaten.vars.id }}">
+                {{ form_widget(form.nimmMeineDaten) }}              
+            </label>
+        </div>
+        <div class="form-field">
+            {{ form_widget(form.save, { 'label': 'Speichern' }) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

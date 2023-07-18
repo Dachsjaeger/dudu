@@ -1,0 +1,47 @@
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-field {
+    margin-bottom: 20px;
+  }
+  
+  .form-field label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-field input[type="text"],
+  .form-field input[type="date"],
+  .form-field input[type="checkbox"],
+  .form-field button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  .form-field input[type="checkbox"] {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+  }
+  
+  .form-field button[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+  }
+  
+  .form-field button[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  

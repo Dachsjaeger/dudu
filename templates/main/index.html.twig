@@ -1,0 +1,12 @@
+{% block head %}
+<link rel="stylesheet" href="{{ asset('css/main.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1>Testo Mesto</h1>
+
+    <div class="buttons-container">
+        <a href="{{ path('login') }}" class="button">Einloggen</a>
+        <a href="{{ path('register') }}" class="button">Registrieren</a>
+    </div>
+{% endblock %}    
