@@ -19,6 +19,10 @@ class Aufgabe
     #[ORM\Column(length: 255)]
     private ?string $Aufgabe = null;
 
+    #[ORM\Column(type: 'string', nullable: true)]
+    private string $bildName;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +48,18 @@ class Aufgabe
     public function setAufgabe(string $Aufgabe): static
     {
         $this->Aufgabe = $Aufgabe;
+
+        return $this;
+    }
+
+    public function getBildName(): ?string
+    {
+        return $this->bildName;
+    }
+
+    public function setBildName(?string $bildName): self
+    {
+        $this->bildName = $bildName;
 
         return $this;
     }

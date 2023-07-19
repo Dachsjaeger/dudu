@@ -19,3 +19,7 @@ register:
 todo:
      path: /todo
      controller: App\Controller\TaskController::new
+
+suc:
+    path: /success
+    controller: App\Controller\TaskController::suc

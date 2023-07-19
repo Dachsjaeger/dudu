@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Success-Seite</title>
+  <link rel="stylesheet" href="{{ asset('css/suc.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Success!</h1>
+    <p>Dein Eintrag wurde erfolgreich gespeichert.</p>
+  </div>
+
+  <button id="zuruck" value="default">Zurück</button>
+
+  <script>
+    document.getElementById("zuruck").addEventListener("click", function() {
+      window.location.href = "{{ path('todo') }}";
+    });
+  </script>
+  
+</body>
+</html>

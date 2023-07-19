@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\FileUploader;
 use App\Form\Type\TaskType;
 use App\Entity\Task;
 use App\Entity\Aufgabe;
@@ -16,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TaskController extends AbstractController
 {
-    public function new(EntityManagerInterface $entityManager, Request $request, FormFactoryInterface $formFactory): Response
+    public function new(FileUploader $fileUploader, EntityManagerInterface $entityManager, Request $request, FormFactoryInterface $formFactory)
     {
 
         $variable = "Test";
@@ -30,6 +31,12 @@ class TaskController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
+            $bildFile = $form->get('bild')->getData();
+
+            if ($bildFile) {
+                $bildName = $fileUploader->upload($bildFile);
+                $aufgabe->setBildName($bildName);
+            }
             echo "<script>console.log('$variable');</script>";
             $task = $form->getData();
             $date = $task->getDueDate()->format('d/m/Y');
@@ -38,9 +45,15 @@ class TaskController extends AbstractController
 
             $entityManager->persist($aufgabe);
             $entityManager->flush();
+            return $this->redirectToRoute('suc');
         }
         return $this->render('task/new.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    public function suc(): Response
+    {
+        return $this->render('task/suc.html.twig');
     }
 }
