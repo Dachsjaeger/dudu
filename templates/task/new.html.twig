@@ -28,4 +28,48 @@
         </div>
         {{ form_end(form) }}
     </div>
+    <div class="all">
+        {% for entry in pass %}
+            <div class="post">
+                <div class="post-field">
+                    {{ entry.datum }}
+                </div>
+                <div class="post-field">
+                    {{ entry.Aufgabe }}
+                </div>
+                {% if entry.bildName %}
+                    <div class="post-field">
+                        <a href="{{ asset('uploads/' ~ entry.bildName) }}" download>{{ entry.bildName }}</a>
+                    </div>
+                {% endif %}
+                <div class="post-field">
+                    <button type="button" class="btn-delete" data-id="{{ entry.id }}">Fertig</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% block javascripts %}
+    <script>
+        const deleteButtons = document.querySelectorAll('.btn-delete');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+                if (confirm('Sicher?')) {
+                    deleteTask(id);
+                }
+            });
+        });
+        function deleteTask(id) {
+            fetch(`/delete-task/${id}`, { method: 'DELETE' })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        alert('FALSCH');
+                    }
+                })
+        }
+    </script>
+    {% endblock %}
 {% endblock %}
+

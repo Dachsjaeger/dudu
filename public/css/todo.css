@@ -45,3 +45,40 @@
     background-color: #45a049;
   }
   
+  .all {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.post {
+    width: calc(33.33% - 20px); 
+    margin-bottom: 20px;
+    background-color: #fff; 
+    border-radius: 4px;
+    border: 4px solid #ffffff;
+    box-shadow: 5px 5px 5px 5px rgba(167, 17, 208, 0.1); 
+}
+
+.post-field {
+    padding: 10px;
+    color: #333; 
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.post-field:nth-child(odd) {
+    background-color: #f9f9f9; 
+}
+
+
+.post-field:nth-child(even) {
+    background-color: #f1f1f1; 
+}
+
+@media (max-width: 768px) {
+    .post {
+        width: calc(50% - 20px); 
+    }
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/post.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="all">
+        {% for entry in pass %}
+        <div class="post">
+            <div class="post-field">
+                {{ entry.datum }}             
+            </div>
+            <div class="post-field">
+                {{ entry.Aufgabe }}             
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

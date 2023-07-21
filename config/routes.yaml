@@ -14,7 +14,7 @@ login:
 
 register:
      path: /register
-     controller: App\Controller\MainController::register
+     controller: App\Controller\RegistrationController::register
 
 todo:
      path: /todo
@@ -23,3 +23,16 @@ todo:
 suc:
     path: /success
     controller: App\Controller\TaskController::suc
+
+anz:
+    path: /posts
+    controller: App\Controller\TaskController::show
+
+delete_task:
+    path: /delete-task/{id}
+    controller: App\Controller\TaskController::deleteTask
+    methods: DELETE
+
+mail:
+    path: /mail
+    controller: App\Controller\MailerController::sendMail

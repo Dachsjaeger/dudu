@@ -1,0 +1,7 @@
+- Login
+- AdminPanel usw.
+- post user abhängig
+- Bilder anzeigen todo
+- reg und rest css
+- admin steuert alles
+- ????

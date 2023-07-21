@@ -20,7 +20,7 @@ class Aufgabe
     private ?string $Aufgabe = null;
 
     #[ORM\Column(type: 'string', nullable: true)]
-    private string $bildName;
+    private ?string $bildName = null;
 
 
     public function getId(): ?int

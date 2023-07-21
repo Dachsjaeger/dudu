@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Service\FileUploader;
 use App\Form\Type\TaskType;
 use App\Entity\Task;
@@ -17,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TaskController extends AbstractController
 {
-    public function new(FileUploader $fileUploader, EntityManagerInterface $entityManager, Request $request, FormFactoryInterface $formFactory)
+    public function new(FileUploader $fileUploader, EntityManagerInterface $entityManager, Request $request)
     {
 
         $variable = "Test";
@@ -42,18 +43,82 @@ class TaskController extends AbstractController
             $date = $task->getDueDate()->format('d/m/Y');
             $aufgabe->setAufgabe($task->getTask());
             $aufgabe->setDatum($date);
-
             $entityManager->persist($aufgabe);
             $entityManager->flush();
-            return $this->redirectToRoute('suc');
+            return $this->redirectToRoute('todo');
+        }
+        $queBe = $entityManager->createQueryBuilder();
+        $posts = $queBe
+                ->select('a')
+                ->from(Aufgabe::class, 'a')
+                ->orderBy('a.Datum', 'DESC')
+                ->getQuery()
+                ->getResult();
+        usort($posts, function ($a, $b) {
+            $dateA = DateTime::createFromFormat('d/m/Y', $a->getDatum());
+            $dateB = DateTime::createFromFormat('d/m/Y', $b->getDatum());
+            return $dateA <=> $dateB;
+        });
+        $display_limit = 110;
+        foreach ($posts as $lu) {
+            $txt = strip_tags($lu->getAufgabe());
+            $pass[] = [
+            'id' => $lu->getId(),
+            'datum' => $lu->getDatum(),
+            'Aufgabe' => $lu->getAufgabe(),
+            'bildName' => $lu->getBildName(),
+            ];
         }
         return $this->render('task/new.html.twig', [
-            'form' => $form,
+        'form' => $form->createView(),
+        'pass' => $pass,
         ]);
     }
 
     public function suc(): Response
     {
         return $this->render('task/suc.html.twig');
+    }
+
+    public function show(EntityManagerInterface $entityManager)
+    {
+        $queBe = $entityManager->createQueryBuilder();
+        $posts = $queBe
+                    ->select('a')
+                    ->from(Aufgabe::class, 'a')
+                    ->orderBy('a.Datum', 'DESC')
+                    ->getQuery()
+                    ->getResult();
+        usort($posts, function ($a, $b) {
+            $dateA = DateTime::createFromFormat('d/m/Y', $a->getDatum());
+            $dateB = DateTime::createFromFormat('d/m/Y', $b->getDatum());
+            return $dateA <=> $dateB;
+        });
+        $display_limit = 110;
+        foreach ($posts as $lu) {
+            $txt = strip_tags($lu->getAufgabe());
+            $pass[] = [
+                'id' => $lu->getId(),
+                'datum' => $lu->getDatum(),
+                'Aufgabe' => $lu->getAufgabe()
+            ];
+        }
+        return $this->render('task/post.html.twig', [
+            'pass' => $pass
+        ]);
+    }
+
+    public function deleteTask(int $id, EntityManagerInterface $entityManager)
+    {
+        $task = $entityManager->getRepository(Aufgabe::class)->find($id);
+
+        if (!$task) {
+            throw $this->createNotFoundException('Wo Aufgabe');
+        }
+
+        $entityManager->remove($task);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('todo');
     }
 }
