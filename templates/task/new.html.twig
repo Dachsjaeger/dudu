@@ -37,6 +37,16 @@
                 <div class="post-field">
                     {{ entry.Aufgabe }}
                 </div>
+                    {% if entry.bildName %}
+                    {% if entry.bildName ends with ('.png') or entry.bildName ends with ('.jpg') %}
+                        <div class="post-field">
+                            <div class="pic">
+                        <img src="{{ asset('uploads/' ~ entry.bildName) }}" alt="Uploaded Image">
+                        </div>
+                        </div>
+                    {% endif %}
+                    {% endif %}
+                
                 {% if entry.bildName %}
                     <div class="post-field">
                         <a href="{{ asset('uploads/' ~ entry.bildName) }}" download>{{ entry.bildName }}</a>
