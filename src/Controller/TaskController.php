@@ -15,14 +15,16 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Security;
 
 class TaskController extends AbstractController
 {
-    public function new(FileUploader $fileUploader, EntityManagerInterface $entityManager, Request $request)
-    {
-
-        $variable = "Test";
-
+    public function new(
+        FileUploader $fileUploader,
+        EntityManagerInterface $entityManager,
+        Request $request,
+        Security $security
+    ) {
         $task = new Task();
         $aufgabe = new Aufgabe();
         $task->setTask('Symfony lernen');
@@ -38,7 +40,12 @@ class TaskController extends AbstractController
                 $bildName = $fileUploader->upload($bildFile);
                 $aufgabe->setBildName($bildName);
             }
-            echo "<script>console.log('$variable');</script>";
+
+            $user = $security->getUser();
+            if ($user) {
+                $aufgabe->setUserId($user->getId());
+            }
+
             $task = $form->getData();
             $date = $task->getDueDate()->format('d/m/Y');
             $aufgabe->setAufgabe($task->getTask());
@@ -47,78 +54,35 @@ class TaskController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('todo');
         }
-        $queBe = $entityManager->createQueryBuilder();
-        $posts = $queBe
-                ->select('a')
-                ->from(Aufgabe::class, 'a')
-                ->orderBy('a.Datum', 'DESC')
-                ->getQuery()
-                ->getResult();
-        usort($posts, function ($a, $b) {
-            $dateA = DateTime::createFromFormat('d/m/Y', $a->getDatum());
-            $dateB = DateTime::createFromFormat('d/m/Y', $b->getDatum());
-            return $dateA <=> $dateB;
-        });
-        $display_limit = 110;
-        foreach ($posts as $lu) {
-            $txt = strip_tags($lu->getAufgabe());
-            $pass[] = [
-            'id' => $lu->getId(),
-            'datum' => $lu->getDatum(),
-            'Aufgabe' => $lu->getAufgabe(),
-            'bildName' => $lu->getBildName(),
-            ];
-        }
+
+        $user = $security->getUser();
+        $userId = $user ? $user->getId() : null;
+        $posts = $this->getFilteredTasks($entityManager, $userId);
+
         return $this->render('task/new.html.twig', [
-        'form' => $form->createView(),
-        'pass' => $pass,
+            'form' => $form->createView(),
+            'pass' => $posts,
         ]);
     }
 
-    public function suc(): Response
-    {
-        return $this->render('task/suc.html.twig');
-    }
+    // ... (suc and deleteTask methods)
 
-    public function show(EntityManagerInterface $entityManager)
+    private function getFilteredTasks(EntityManagerInterface $entityManager, ?int $userId): array
     {
+        if (!$userId) {
+            return [];
+        }
+
         $queBe = $entityManager->createQueryBuilder();
         $posts = $queBe
-                    ->select('a')
-                    ->from(Aufgabe::class, 'a')
-                    ->orderBy('a.Datum', 'DESC')
-                    ->getQuery()
-                    ->getResult();
-        usort($posts, function ($a, $b) {
-            $dateA = DateTime::createFromFormat('d/m/Y', $a->getDatum());
-            $dateB = DateTime::createFromFormat('d/m/Y', $b->getDatum());
-            return $dateA <=> $dateB;
-        });
-        $display_limit = 110;
-        foreach ($posts as $lu) {
-            $txt = strip_tags($lu->getAufgabe());
-            $pass[] = [
-                'id' => $lu->getId(),
-                'datum' => $lu->getDatum(),
-                'Aufgabe' => $lu->getAufgabe()
-            ];
-        }
-        return $this->render('task/post.html.twig', [
-            'pass' => $pass
-        ]);
-    }
+            ->select('a')
+            ->from(Aufgabe::class, 'a')
+            ->where('a.user_id = :user_id')
+            ->setParameter('user_id', $userId)
+            ->orderBy('a.Datum', 'DESC')
+            ->getQuery()
+            ->getResult();
 
-    public function deleteTask(int $id, EntityManagerInterface $entityManager)
-    {
-        $task = $entityManager->getRepository(Aufgabe::class)->find($id);
-
-        if (!$task) {
-            throw $this->createNotFoundException('Wo Aufgabe');
-        }
-
-        $entityManager->remove($task);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('todo');
+        return $posts;
     }
 }

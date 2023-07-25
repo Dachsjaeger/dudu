@@ -6,8 +6,22 @@
     <h1>Testo Mesto</h1>
 
     <div class="buttons-container">
-        <a href="{{ path('login') }}" class="button">/Ein</a>
+        <a href="{{ path('app_login') }}" class="button">/Ein</a>
         <a href="{{ path('register') }}" class="button">/Reg</a>
         <a href="{{ path('todo') }}" class="button">To-Do</a>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+         <p>
+            <form action="{{ path('app_logout') }}" method="post">
+                <button type="submit">Logout</button>
+            </form>
+         </p>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+         <p>
+            <form action="{{ path('admin') }}">
+                <button type="submit">Admin</button>
+            </form>
+         </p>
+        {% endif %}
     </div>
 {% endblock %}    

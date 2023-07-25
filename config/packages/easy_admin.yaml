@@ -1,0 +1,6 @@
+easy_admin:
+    design:
+        logout:
+            type: "route"
+            name: "app_logout"
+            method: "POST"

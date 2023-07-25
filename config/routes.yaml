@@ -8,10 +8,6 @@ home:
     path: /
     controller: App\Controller\MainController::index
 
-login:
-     path: /login
-     controller: App\Controller\MainController::login
-
 register:
      path: /register
      controller: App\Controller\RegistrationController::register
@@ -36,3 +32,15 @@ delete_task:
 mail:
     path: /mail
     controller: App\Controller\MailerController::sendMail
+
+app_login:
+    path: /login
+    controller: App\Controller\LoginController::index
+
+app_logout:
+    path: /logout
+    methods: POST
+
+admin:
+    path: /admin
+    controller: App\Controller\Admin\DashboardController::index

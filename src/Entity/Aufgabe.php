@@ -22,10 +22,22 @@ class Aufgabe
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $bildName = null;
 
+    #[ORM\Column]
+    private int $user_id;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUserId(): int
+    {
+        return $this->user_id;
+    }
+
+    public function setUserId(int $user_id)
+    {
+        $this->user_id = $user_id;
     }
 
     public function getDatum(): ?string

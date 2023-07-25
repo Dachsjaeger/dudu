@@ -1,7 +1,7 @@
-- Login
-- AdminPanel usw.
-- post user abhängig
-- Bilder anzeigen todo
-- reg und rest css
-- admin steuert alles
+- Login YIP
+- AdminPanel usw. YIP
+- post user abhängig YIP
+- Bilder anzeigen todo 
+- reg und rest css YIP
+- admin steuert alles YIP
 - ????
