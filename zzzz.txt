@@ -1,7 +1,7 @@
 - Login YIP
 - AdminPanel usw. YIP
 - post user abhängig YIP
-- Bilder anzeigen todo 
+- Bilder anzeigen todo YIP
 - reg und rest css YIP
 - admin steuert alles YIP
-- ????
+- 

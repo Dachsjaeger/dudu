@@ -64,28 +64,32 @@
             </div>
         {% endfor %}
     </div>
-    {% block javascripts %}
+    {% verbatim %}
     <script>
         const deleteButtons = document.querySelectorAll('.btn-delete');
+
         deleteButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const id = button.getAttribute('data-id');
-                if (confirm('Sicher?')) {
-                    deleteTask(id);
-                }
+            button.addEventListener('click', function() {
+                const postId = this.dataset.id;
+                deletePost(postId);
             });
         });
-        function deleteTask(id) {
-            fetch(`/delete-task/${id}`, { method: 'DELETE' })
-                .then(response => {
-                    if (response.ok) {
-                        window.location.reload();
-                    } else {
-                        alert('FALSCH');
+
+        function deletePost(postId) {
+            fetch(`/delete-task/${postId}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    const postElement = document.querySelector(`[data-id="${postId}"]`);
+                    if (postElement) {
+                        postElement.closest('.post').remove();
                     }
-                })
+                }
+            })
+            .catch(error => {
+            });
         }
     </script>
-    {% endblock %}
+    {% endverbatim %}
 {% endblock %}
-

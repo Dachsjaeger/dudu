@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 
 class AufgabeController extends AbstractCrudController
 {
@@ -19,6 +20,7 @@ class AufgabeController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            IdField::new('user_Id', 'User'),
             TextField::new('datum', 'Bis'),
             TextField::new('aufgabe', 'Aufgabe')->setSortable(false),
             TextField::new('bildName', 'Datei'),

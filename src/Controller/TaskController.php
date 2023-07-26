@@ -70,7 +70,6 @@ class TaskController extends AbstractController
         if (!$userId) {
             return [];
         }
-
         $queBe = $entityManager->createQueryBuilder();
         $posts = $queBe
             ->select('a')
@@ -82,5 +81,15 @@ class TaskController extends AbstractController
             ->getResult();
 
         return $posts;
+    }
+
+    public function deleteTask(EntityManagerInterface $entityManager, Request $request)
+    {
+        $postId = $request->attributes->get('id');
+
+        $aufgabe = $entityManager->getRepository(Aufgabe::class)->find($postId);
+        $entityManager->remove($aufgabe);
+        $entityManager->flush();
+        return $this->redirectToRoute('todo');
     }
 }
