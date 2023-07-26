@@ -4,6 +4,12 @@
 {% endblock %}
 
 {% block content %}
+    <button id="zuruck" value="default">Zurück</button>
+    <script>
+        document.getElementById("zuruck").addEventListener("click", function() {
+            window.location.href = "{{ path('home') }}";
+        });
+    </script>
     <div class="form-container">
         {{ form_start(form) }}
         <div class="form-field">
