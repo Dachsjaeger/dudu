@@ -1,6 +1,7 @@
 form {
     margin: 0;
     padding: 0;
+    background-color: #e7e1e1c9;
 }
 
 form {
@@ -15,14 +16,10 @@ form {
 label {
     font-weight: bold;
     margin-bottom: 8px;
-    font-size: 18px; 
+    font-size: 18px;
+    padding: 5px; 
 }
 
-h1 {
-    font-weight: bold;
-    margin-bottom: 8px;
-    font-size: 18px; 
-}
 input[type="text"],
 input[type="password"] {
     width: 300px;
@@ -52,6 +49,6 @@ button[type="submit"]:hover {
 
 .error-message {
     color: red;
-    margin-bottom: 12px;
-    font-size: 16px;
+    margin-top: 12px;
+    font-size: 18px;
 }

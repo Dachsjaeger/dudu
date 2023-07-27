@@ -1,95 +1,120 @@
 <!DOCTYPE html>
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/todo.css') }}">
-{% endblock %}
-
-{% block content %}
-    <button id="zuruck" value="default">Zurück</button>
-    <script>
-        document.getElementById("zuruck").addEventListener("click", function() {
-            window.location.href = "{{ path('home') }}";
-        });
-    </script>
-    <div class="form-container">
-        {{ form_start(form) }}
-        <div class="form-field">
-            {{ form_label(form.task, 'Aufgabe') }}
-            {{ form_widget(form.task) }}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/todo.css') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@600&display=swap" rel="stylesheet">
+    {% endblock %}
+</head>
+<body>
+    <div class="navbar">
+        <div class="rettung">
+        <img src="/pic/logo.png" alt="Logo" class="logo">
+        <div class="navbar__brand">ToDo</div>
         </div>
-        <div class="form-field">
-            {{ form_label(form.dueDate, 'Fertig bis:') }}
-            {{ form_widget(form.dueDate) }}
+        <div class="navbar__links">
+            <a href="{{ path('register') }}">Register</a>
+            <form action="{{ path('app_logout') }}" method="post">
+                <button type="submit" class="nav">Logout</button>
+            </form>
+            {% if is_granted('ROLE_ADMIN') %}
+                <p>
+                    <form action="{{ path('admin') }}">
+                        <button type="submit" class="nav">Admin</button>
+                    </form>
+                </p>
+            {% endif %}
         </div>
-        <div class="form-field">
-            {{ form_label(form.bild, 'Datei (optional)') }}
-            {{ form_widget(form.bild) }}
-        </div>
-        <div class="form-field">
-            <label for="{{ form.nimmMeineDaten.vars.id }}">
-                {{ form_widget(form.nimmMeineDaten) }}              
-            </label>
-        </div>
-        <div class="form-field">
-            {{ form_widget(form.save, { 'label': 'Speichern' }) }}
-        </div>
-        {{ form_end(form) }}
     </div>
-    <div class="all">
-        {% for entry in pass %}
-            <div class="post">
-                <div class="post-field">
-                    {{ entry.datum }}
-                </div>
-                <div class="post-field">
-                    {{ entry.Aufgabe }}
-                </div>
-                    {% if entry.bildName %}
-                    {% if entry.bildName ends with ('.png') or entry.bildName ends with ('.jpg') %}
-                        <div class="post-field">
-                            <div class="pic">
-                        <img src="{{ asset('uploads/' ~ entry.bildName) }}" alt="Uploaded Image">
-                        </div>
-                        </div>
-                    {% endif %}
-                    {% endif %}
-                
-                {% if entry.bildName %}
-                    <div class="post-field">
-                        <a href="{{ asset('uploads/' ~ entry.bildName) }}" download>{{ entry.bildName }}</a>
-                    </div>
-                {% endif %}
-                <div class="post-field">
-                    <button type="button" class="btn-delete" data-id="{{ entry.id }}">Fertig</button>
-                </div>
+
+    {% block content %}
+        <div class="form-container">
+            {{ form_start(form) }}
+            <div class="form-field">
+                {{ form_label(form.task, 'Aufgabe') }}
+                {{ form_widget(form.task) }}
             </div>
-        {% endfor %}
-    </div>
-    {% verbatim %}
-    <script>
-        const deleteButtons = document.querySelectorAll('.btn-delete');
+            <div class="form-field">
+                {{ form_label(form.dueDate, 'Fertig bis:') }}
+                {{ form_widget(form.dueDate) }}
+            </div>
+            <div class="form-field">
+                {{ form_label(form.bild, 'Datei (optional)') }}
+                {{ form_widget(form.bild) }}
+            </div>
+            <div class="form-field">
+                <label for="{{ form.nimmMeineDaten.vars.id }}">
+                    {{ form_widget(form.nimmMeineDaten) }}              
+                </label>
+            </div>
+            <div class="form-field">
+                {{ form_widget(form.save, { 'label': 'Speichern' }) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <div class="all">
+            {% set colors = ['#809bce', '#b8e0d2', '#eac4d5', '#d6eadf', '#95b8d1'] %}
+            {% for key, entry in pass %}
+                <div class="post" style="background-color: {{ colors[key % colors|length] }}">
+                    {% if entry.bildName %}
+                        {% if entry.bildName ends with ('.png') or entry.bildName ends with ('.jpg') %}
+                            <div class="post-field">
+                                <div class="pic">
+                                    <img src="{{ asset('uploads/' ~ entry.bildName) }}" alt="Uploaded Image">
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    <div class="post-field">
+                        <div class="dat">                   
+                             {{ entry.datum }}
+                        </div>
+                    </div>
+                    <div class="post-field">
+                        {{ entry.Aufgabe }}
+                    </div>                                   
+                    {% if entry.bildName %}
+                        <div class="post-field">
+                            <a href="{{ asset('uploads/' ~ entry.bildName) }}" download>{{ entry.bildName }}</a>
+                        </div>
+                    {% endif %}
+                    <div class="post-field">
+                        <button type="button" class="btn-delete" data-id="{{ entry.id }}">Fertig</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <script>
+            const deleteButtons = document.querySelectorAll('.btn-delete');
 
-        deleteButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const postId = this.dataset.id;
-                deletePost(postId);
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const postId = this.dataset.id;
+                    deletePost(postId);
+                });
             });
-        });
 
-        function deletePost(postId) {
-            fetch(`/delete-task/${postId}`, {
-                method: 'DELETE'
-            })
-            .then(response => {
-                if (response.ok) {
-                    const postElement = document.querySelector(`[data-id="${postId}"]`);
-                    if (postElement) {
-                        postElement.closest('.post').remove();
+            function deletePost(postId) {
+                fetch(`/delete-task/${postId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        const postElement = document.querySelector(`[data-id="${postId}"]`);
+                        if (postElement) {
+                            postElement.closest('.post').remove();
+                        }
                     }
-                }
-            })
-            .catch(error => {
-            });
-        }
-    </script>
-    {% endverbatim %}
-{% endblock %}
+                })
+                .catch(error => {
+                });
+            }
+        </script>
+    {% endblock %}
+</body>
+</html>

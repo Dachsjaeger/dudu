@@ -52,7 +52,7 @@ class TaskController extends AbstractController
             $aufgabe->setDatum($date);
             $entityManager->persist($aufgabe);
             $entityManager->flush();
-            return $this->redirectToRoute('todo');
+            return $this->redirectToRoute('home');
         }
 
         $user = $security->getUser();
@@ -90,6 +90,6 @@ class TaskController extends AbstractController
         $aufgabe = $entityManager->getRepository(Aufgabe::class)->find($postId);
         $entityManager->remove($aufgabe);
         $entityManager->flush();
-        return $this->redirectToRoute('todo');
+        return $this->redirectToRoute('home');
     }
 }

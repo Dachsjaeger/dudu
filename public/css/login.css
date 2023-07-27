@@ -1,21 +1,44 @@
-form {
+body {
+    background-color: #373737;
     margin: 0;
-    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.form-header {
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    font-family: 'Abril Fatface', cursive;
+    letter-spacing: 1px;
+    font-size: 20px;
+    color: #1f1e1e;
+}
+
+.logo {
+    max-width: 5rem;
+    margin-right: 10px;
+}
 form {
+    width: 22rem;
+    height: 20rem;
+    padding: 0;
+    background-color: #7e7c7cc9;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    border-radius: 6px;
+    border: 2px solid #1f1e1e;
     font-family: 'Roboto', sans-serif;
 }
 
 label {
     font-weight: bold;
     margin-bottom: 8px;
-    font-size: 18px; 
+    font-size: 18px;
 }
 
 input[type="text"],
@@ -23,18 +46,19 @@ input[type="password"] {
     width: 300px;
     padding: 12px;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #373737;
+    border-radius: 3px;
     font-size: 16px;
-    font-family: 'Roboto', sans-serif; 
+    font-family: 'Roboto', sans-serif;
 }
 
 button[type="submit"] {
+    width: 300px;
     background-color: #007bff;
     color: #fff;
     padding: 12px 24px;
     border: none;
-    border-radius: 5px;
+    border-radius: 1px;
     font-size: 18px;
     font-family: 'Roboto', sans-serif;
     cursor: pointer;
@@ -47,6 +71,6 @@ button[type="submit"]:hover {
 
 .error-message {
     color: red;
-    margin-bottom: 12px;
-    font-size: 16px;
+    margin-top: 12px;
+    font-size: 18px;
 }
