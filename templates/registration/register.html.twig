@@ -7,6 +7,10 @@
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
+    <div class="form-header">
+        <img src="/pic/logo.png" alt="Logo" class="logo">
+        <h2>ToDo</h2>
+    </div>
         {{ form_row(registrationForm.uid) }}
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'

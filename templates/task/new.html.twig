@@ -58,7 +58,7 @@
             {{ form_end(form) }}
         </div>
         <div class="all">
-            {% set colors = ['#809bce', '#b8e0d2', '#eac4d5', '#d6eadf', '#95b8d1'] %}
+            {% set colors = ['#809bce', '#b8e0d2', '#eac4d5', '#d6eadf', '#eac4d5', '#95b8d1'] %}
             {% for key, entry in pass %}
                 <div class="post" style="background-color: {{ colors[key % colors|length] }}">
                     {% if entry.bildName %}

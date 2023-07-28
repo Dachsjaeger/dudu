@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Enten Seite</title>
+  <link rel="icon" href="index.jpeg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="test.css">
+  <script src="test.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Ente</h1>
+  </header>
+
+  <main>
+    <a href="https://de.wikipedia.org/wiki/Entenvögel">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzp-9bS7O36NqjgL43C8pepuzFipMAKP7Uvg&usqp=CAU"
+        alt="Enten Bild">
+    </a>
+    <br>
+    <br>
+    <p3 id="date"></p3>	
+    <br>
+    <p>Die Familie der Entenvögel (Anatidae) ist die artenreichste aus der Ordnung der Gänsevögel (Anseriformes). Sie
+      umfasst 47 Gattungen und etwa 150 Arten. Zu dieser Gruppe gehören so bekannte Typen von Wasservögeln wie die
+      Enten, Gänse und Schwäne. </p>
+
+    <div class="container">
+	<form onsubmit="return tee()">      	
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required pattern="[a-zA-Z0-9]{0-9}" placeholder="Name" autofocus><br>
+        <label for="pwd">Password:</label>
+        <input type="password" id="pwd" name="pwd" required placeholder="Passwort"><br>
+        <input type="submit" value="Submit">
+        <input type="reset">
+      </form>
+      <br>
+      <p2 id="loginStatus"></p2>
+      <br>
+      <br>
+
+      <form>
+        <input type="radio" id="Ente" name="vogel" value="ENTE">
+        <label for="Ente">Ente</label><br>
+        <input type="radio" id="Gans" name="vogel" value="GANS">
+        <label for="Gans">Gans</label><br>
+        <input type="radio" id="Schwan" name="vogel" value="SCHWAN">
+        <label for="Schwan">Schwan</label>
+      </form>
+
+      <br>
+      <br>
+      
+      <form onsubmit="return to()">  
+        <label for="vo">Wähle einen Vogel:</label>
+        <select id="vo" name="amnasda">
+        <option value="Ente">Ente</option>
+        <option value="Gans">Gans</option>
+    	<option value="Storch">Storch</option>
+        <option value="Schwan">Schwan</option>
+ 	</select>
+      <input type="submit">
+    </form>
+
+      <br>
+      <br>
+
+      <form action="test.php">
+        <label for="farbe">Farbe auswählen:</label>
+        <input type="color" id="farbe" name="farbe" value="#ff0000">
+      </form>
+      
+      <br>
+      <br>
+      
+      <form action="test.php">
+      	<label for="check">Checkbox:</label>
+      	<input type="checkbox" id="check" name="check" value="Check">
+      	<label for="check2">Checkbox2:</label>
+      	<input type="checkbox" id="check2" name"check" value="check">
+      </form>	
+     
+      <br>
+      <br>
+      
+      <form>
+  	<label for="file">Wähle eine Datei:</label>
+  	<input type="file" id="file" name="file" multiple>
+      </form> 
+      
+      <br>
+      <br>
+      
+      <form action="test">
+  	<label for="quantity">Zahl zwischen 1 und 5:</label>
+  	<input type="number" id="quantity" name="quantity" min="1" max="5"> 
+      </form>
+      
+      <br>
+      <br>
+      
+      <textarea name="message" style="width:400px; height:600px;">
+	Alle meine Enten schwimmen auf dem See
+      </textarea> 
+	
+      <br>
+      <br>		
+       
+        <form>
+  	  <label for="ess">Stadt</label>
+  	  <input type="text" id="ess" name="ess" pattern="[esnESN]{5}" title="Stadt" placeholder="Essen">
+	</form>
+
+      <br>
+      <br>
+      
+       <form>
+  	<label for="email">Email rein</label>
+  	<input type="email" id="email" name="email" autocomplete="on" placeholder="bespiel@smtp.com">
+       </form> 		 
+ 
+    </div>
+    <br>	
+    <br>
+    <table>
+      <thead>
+        <tr>
+          <th>Entenart</th>
+          <th>Merkmale</th>
+          <th>Lebensraum</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Stockente</td>
+          <td>Körpergröße: mittelgroß<br>Farbe: braun und grün<br>Schnabel: gelb</td>
+          <td>Seen, Flüsse, Teiche</td>
+        </tr>
+        <tr>
+          <td>Mandarinente</td>
+          <td>Körpergröße: klein<br>Farbe: bunt und auffällig<br>Schnabel: rot</td>
+          <td>Waldseen, Parkteiche</td>
+        </tr>
+        <tr>
+          <td>Pfeifente</td>
+          <td>Körpergröße: mittelgroß<br>Farbe: braun mit weißem Bauch<br>Schnabel: grau</td>
+          <td>Flüsse, Feuchtgebiete</td>
+        </tr>
+      </tbody>
+    </table>
+  <br>  
+  <form id="pdfUploadForm" enctype="multipart/form-data">
+    <input type="file" id="pdfFile" accept="application/pdf" required>
+    <button type="submit">Hochladen</button>
+  </form>
+  <br>
+  <form id="imageUploadForm">
+    <input type="file" id="imageFile" accept="image/*" required>
+    <button type="submit">Hochladen</button>
+  </form>
+
+  </div>
+  </main>
+
+
+  <footer>
+    Seite über Enten
+  </footer>
+
+</body>
+
+</html>
+
+

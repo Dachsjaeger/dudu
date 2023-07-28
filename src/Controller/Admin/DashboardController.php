@@ -40,7 +40,6 @@ class DashboardController extends AbstractDashboardController
         return [
             MenuItem::linkToCrud('User', 'fa fa-home', User::class),
             MenuItem::linkToCrud('To-Dos', 'fa fa-home', Aufgabe::class),
-            MenuItem::linkToRoute('Hauptseite', 'fas fa-home', 'home'),
             MenuItem::linkToRoute('TODO', 'fas fa-home', 'todo')
         ];
     }

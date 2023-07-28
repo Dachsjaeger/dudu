@@ -72,13 +72,20 @@ class TaskController extends AbstractController
         }
         $queBe = $entityManager->createQueryBuilder();
         $posts = $queBe
-            ->select('a')
-            ->from(Aufgabe::class, 'a')
-            ->where('a.user_id = :user_id')
-            ->setParameter('user_id', $userId)
-            ->orderBy('a.Datum', 'DESC')
-            ->getQuery()
-            ->getResult();
+        ->select('a')
+        ->from(Aufgabe::class, 'a')
+        ->where('a.user_id = :user_id')
+        ->setParameter('user_id', $userId)
+        ->getQuery()
+        ->getResult();
+
+        foreach ($posts as $post) {
+            $post->datumAsDateTime = \DateTime::createFromFormat('d/m/Y', $post->getDatum());
+        }
+
+        usort($posts, function ($task1, $task2) {
+            return $task1->datumAsDateTime <=> $task2->datumAsDateTime;
+        });
 
         return $posts;
     }

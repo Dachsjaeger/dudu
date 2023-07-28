@@ -5,3 +5,16 @@
 - reg und rest css YIP
 - admin steuert alles YIP
 - 
+
+$queBe = $entityManager->createQueryBuilder();
+        $posts = $queBe
+            ->select('a')
+            ->from(Aufgabe::class, 'a')
+            ->where('a.user_id = :user_id')
+            ->setParameter('user_id', $userId)
+            ->orderBy('DATE_FORMAT(a.Datum, \'%d/%m/%Y\')', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+        return $posts;
+    }
